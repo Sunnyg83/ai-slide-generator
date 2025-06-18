@@ -7,6 +7,7 @@ load_dotenv()
 api_key = os.getenv("GOOGLE_API_KEY")
 
 genai.configure(api_key=api_key)
+# use my API key for all requests
 
 def build_prompt(text):
     return f"""
@@ -16,7 +17,7 @@ Instructions:
 - Create 3 to 5 slides.
 - Each slide should have a short, clear title and 3 to 5 concise bullet points.
 - Use simple, student-friendly language.
-- Don't copy the input directly—summarize and rephrase clearly.
+- Don't copy the input directly, summarize and rephrase clearly.
 
 Input Text:
 {text}
@@ -25,7 +26,9 @@ Input Text:
 def generate_slides(text):
     model = genai.GenerativeModel('gemini-2.0-flash')
     prompt = build_prompt(text)
+    # send prompt to gemini and get response
     response = model.generate_content(prompt)
+    # slide deck text from gemini
     return response.text
 
 def read_input_file(filepath):
@@ -38,14 +41,14 @@ def save_output_to_file(output, filename="slide_output.txt"):
     print(f"\n Slide deck saved to {filename}")
 
 if __name__ == "__main__":
-    print("AI Slide Deck Generator (Gemini Version)")
+    print("AI Slide Deck Generator")
     choice = input("Use text from file? (y/n): ").strip().lower()
 
     if choice == 'y':
         path = input("Enter file path (default: sample_input.txt): ").strip() or "sample_input.txt"
         input_text = read_input_file(path)
     else:
-        print("Enter your text (end with an empty line):")
+        print("Enter your text (end input with an empty line):")
         lines = []
         while True:
             line = input()
