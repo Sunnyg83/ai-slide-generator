@@ -13,4 +13,4 @@ Input text manually or from a file, the output is saved to `slide_output.txt`.
   `python main.py`
 
 **Purpose:**  
-Demo of using an AI API to automate slide creation from raw
+Demo of using an AI API to automate slide creation from raw text
